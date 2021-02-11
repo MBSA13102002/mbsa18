@@ -75,8 +75,8 @@ section {
   width: 400px;
   height: 400px;
   position: absolute;
-  left: 34vw;
-  top: 25vh;
+  left: 20vw;
+  top: 20vh;
   z-index: 1;
   filter: brightness(0.7);
 }
