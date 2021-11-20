@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .form {
+        font-family: Helvetica, sans-serif;
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 16px;
+        background: #f7f7f7;
+      }
+      .form h1 {
+        background: #5868bf;
+        padding: 20px 0;
+        font-weight: 300;
+        text-align: center;
+        color: #fff;
+        margin: -16px -16px 16px -16px;
+        font-size:  25px;
+      }
+      .form input[type="text"],
+      .form input[type="url"] {
+        box-sizing: border-box;
+        width: 100%;
+        background: #fff;
+        margin-bottom: 4%;
+        border: 1px solid #ccc;
+        padding: 3%;
+        color: #555;
+      }
+      .form input[type="text"]:focus,
+      .form input[type="url"]:focus {
+        box-shadow: 0 0 5px #5868bf;
+        padding: 3%;
+        border: 1px solid #5868bf;
+      }
+      
+      .form button {
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        width: 150px;
+        margin: 0 auto;
+        padding: 3%;
+        background: #5868bf;
+        border-bottom: 2px solid #5868bf;
+        border-top-style: none;
+        border-right-style: none;
+        border-left-style: none;
+        color: #fff;
+        cursor: pointer;
+      }
+      .form button:hover {
+        background: rgba(88,104,191, 0.5);
+      }
+      #qrcode-container{
+          display:none;
+      }
+      
+      .qrcode{
+        padding: 16px;
+      }
+      .qrcode img{
+        margin: 0 auto;
+      }
+</style>
+<body>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+
+<div class="form">
+  <h1>NITK QR Code Attendace Scanner </h1>
+  <h1 id="success" style="display:none">Verified Successfully!!!!</h1>
+  <!-- <form>
+    <input type="url" id="website" name="website" placeholder="https://webisora.com" required />
+    <button type="button" onclick="generateQRCode()">
+      Generate QR Code
+    </button>
+  </form> -->
+
+  <div id="qrcode-container">`
+    <div id="qrcode" class="qrcode"></div>
+    <h4>With some styles</h4>
+    <div id="qrcode-2" class="qrcode"></div>
+  </div>
+<script>
+  let qrcodeContainer = document.getElementById("qrcode");
+        qrcodeContainer.innerHTML = "";
+        new QRCode(qrcodeContainer, "{{key}}")
+        document.getElementById("qrcode-container").style.display = "block"
+</script>
+<script src=https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js></script>
+<script src=https://www.gstatic.com/firebasejs/8.7.0/firebase-database.js></script>
+<script src=https://www.gstatic.com/firebasejs/8.7.0/firebase-analytics.js></script>
+<script src=https://www.gstatic.com/firebasejs/8.7.0/firebase-auth.js></script>
+<script>
+    var firebaseConfig = {
+        apiKey: "AIzaSyDO2W0QCmFCo0a-PTsT7ficA_QLI5e_WHg",
+        authDomain: "chat-a7bab.firebaseapp.com",
+        projectId: "chat-a7bab",
+        storageBucket: "chat-a7bab.appspot.com",
+        messagingSenderId: "550345253145",
+        appId: "1:550345253145:web:c6f493380c62bed2d02588",
+        measurementId: "G-R8DG3WGW88"
+    };
+    firebase.initializeApp(firebaseConfig);
+  try{
+
+    var Imp_Data = firebase.database().ref("_Attendance_").child("{{key}}")
+    Imp_Data.on('value', (snapshot) => {
+      if(snapshot.val()['verified']==1){
+        document.getElementById("qrcode-container").style.display = "none";
+        document.getElementById("success").style.display = "block"
+        document.getElementById("success").innerHTML+=`\n${snapshot.val()['rollno']}`
+        setTimeout(function(){
+          window.location.reload()
+        },2000)
+      }
+    })
+  }
+  catch (e){
+  
+  }
+</script>
+  <!-- <script type="text/javascript">
+    function generateQRCode() {
+      let website = document.getElementById("website").value;
+      if (website) {
+        let qrcodeContainer = document.getElementById("qrcode");
+        qrcodeContainer.innerHTML = "";
+        new QRCode(qrcodeContainer, website);
+        /*With some styles*/
+        let qrcodeContainer2 = document.getElementById("qrcode-2");
+        qrcodeContainer2.innerHTML = "";
+        new QRCode(qrcodeContainer2, {
+          text: website,
+          width: 128,
+          height: 128,
+          colorDark: "#5868bf",
+          colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.H
+        });
+        document.getElementById("qrcode-container").style.display = "block";
+      } else {
+        alert("Please enter a valid URL");
+      }
+    }`
+  </script> -->
+</div>
+</body>
+</html>
