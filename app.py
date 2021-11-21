@@ -61,7 +61,6 @@ def verify():
     global success
     success = 0
     if request.method == 'POST':
-        global success
         success = 0
         value = request.get_json()
         all_entries = db.child("_Attendance_").get().val()
@@ -87,6 +86,7 @@ def verify():
         return render_template("success.html")
     else:
         return render_template("danger.html")
+
 
             
     
