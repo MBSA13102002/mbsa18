@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>QR Code 
+        Scanner</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+    <link rel="stylesheet" href="static/src/styles.css" />
+    <script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/qr_packed.js"></script>
+  </head>
+
+  <body>
+    <div id="container">
+      <h1>NITK QR Code Scanner</h1>
+
+      <a id="btn-scan-qr">
+        <img src="https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/07/1499401426qr_icon.svg">
+      <a/>
+
+      <canvas hidden="" id="qr-canvas"></canvas>
+
+      <div id="qr-result" hidden="">
+        <b>Data:</b> <span id="outputData"></span>
+      </div>
+    </div>
+    <script src=https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js></script>
+    <script src=https://www.gstatic.com/firebasejs/8.7.0/firebase-database.js></script>
+    <script src=https://www.gstatic.com/firebasejs/8.7.0/firebase-analytics.js></script>
+    <script src=https://www.gstatic.com/firebasejs/8.7.0/firebase-auth.js></script>
+    <script>
+      var firebaseConfig = {
+          apiKey: "AIzaSyDZz8e_QIruwWnyOclDfnPQEjKvCQEZ1GE",
+          authDomain: "nitk-attendance.firebaseapp.com",
+          databaseURL: "https://nitk-attendance-default-rtdb.firebaseio.com",
+          projectId: "nitk-attendance",
+          storageBucket: "nitk-attendance.appspot.com",
+          messagingSenderId: "911144952264",
+          appId: "1:911144952264:web:37ab1feabfe1927bc5e0fd",
+          measurementId: "G-V3LM0Y97FC"
+        };
+        firebase.initializeApp(firebaseConfig);
+    </script>
+    <script src="static/src/qrCodeScanner.js"></script>
+  </body>
+</html>
