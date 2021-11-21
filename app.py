@@ -64,7 +64,7 @@ def verify():
         if(all_entries!=None):
             if(value['key'] not in all_entries.keys()):
                 db.child("_Attendance_").child(value['key']).set({
-                    'RollNo':request.cookies.get('__user__'),
+                    'RollNo':request.cookies.get('__key__'),
                     "datetime":value['date'],
                     "verified":1
                 })
@@ -73,7 +73,7 @@ def verify():
                 return render_template("danger.html")
         else:
             db.child("_Attendance_").child(value['key']).set({
-                    'RollNo':request.cookies.get('__user__'),
+                    'RollNo':request.cookies.get('__key__'),
                     "datetime":value['date'],
                     "verified":1
                 })
