@@ -16,7 +16,7 @@ config = {
 
 firebase = Firebase(config)
 db = firebase.database()
-
+success = 0
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -59,9 +59,7 @@ def index():
 @app.route("/verify",methods = ['GET','POST'])
 def verify():
     global success
-    success = 0
     if request.method == 'POST':
-        success = 0
         value = request.get_json()
         all_entries = db.child("_Attendance_").get().val()
         if(all_entries!=None):
@@ -71,10 +69,10 @@ def verify():
                     "datetime":value['date'],
                     "verified":1
                 })
-                print("success")
                 success = 1
             else:
                 success = 0
+
         else:
             db.child("_Attendance_").child(value['key']).set({
                     'RollNo':request.cookies.get('__key__'),
