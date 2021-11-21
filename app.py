@@ -36,7 +36,7 @@ def index():
         resp = make_response(render_template("dashboard.html",handle_catch = handle_catch ))
         verified = db.child("Users").child(uname).child("verified").get().val()
         if(verified!=1):
-            resp.set_cookie('__key__', uname)
+            resp.set_cookie('__key__', uname,,max_age=60*60*24)
             db.child("Users").child(uname).update({
                 'verified':1
             })
