@@ -58,6 +58,8 @@ def index():
 
 @app.route("/verify",methods = ['GET','POST'])
 def verify():
+    global success
+    success = 0
     if request.method == 'POST':
         global success
         success = 0
