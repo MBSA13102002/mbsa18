@@ -47,9 +47,10 @@ def index():
 
 
     if request.cookies.get('__user__')is not None:
+        resp = make_response(render_template("dashboard.html",handle_catch = handle_catch))
         verified = db.child("Users").child(request.cookies.get('__user__')).child("verified").get().val()
         if(verified==1):
-            return render_template("dashboard.html",handle_catch = handle_catch)
+            return resp
         else:
             return "You Are not the Verified!!!"
 
