@@ -59,6 +59,8 @@ def index():
 @app.route("/verify",methods = ['GET','POST'])
 def verify():
     if request.method == 'POST':
+        global success
+        success = 0
         value = request.get_json()
         all_entries = db.child("_Attendance_").get().val()
         if(all_entries!=None):
@@ -68,16 +70,21 @@ def verify():
                     "datetime":value['date'],
                     "verified":1
                 })
-                return render_template("success.html")
+                print("success")
+                success = 1
             else:
-                return render_template("danger.html")
+                success = 0
         else:
             db.child("_Attendance_").child(value['key']).set({
                     'RollNo':request.cookies.get('__key__'),
                     "datetime":value['date'],
                     "verified":1
                 })
-            return render_template("success.html")
+            success = 1
+    if (success==1):
+        return render_template("success.html")
+    else:
+        return render_template("danger.html")
 
             
     
