@@ -69,9 +69,9 @@ def verify():
                     "datetime":value['date'],
                     "verified":1
                 })
-                success = 1
+                return "1"
             else:
-                success = 0
+                return  "0"
 
         else:
             db.child("_Attendance_").child(value['key']).set({
@@ -79,11 +79,15 @@ def verify():
                     "datetime":value['date'],
                     "verified":1
                 })
-            success = 1
-    if (success==1):
-        return render_template("success.html")
-    else:
-        return render_template("danger.html")
+            return  "1"
+
+@app.route('/success',methods = ['GET','POST'])
+def success():
+    return render_template('success.html')
+
+@app.route('/danger',methods = ['GET','POST'])
+def danger():
+    return render_template('danger.html')
 
 
             
