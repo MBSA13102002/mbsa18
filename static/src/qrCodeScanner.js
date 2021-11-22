@@ -53,9 +53,9 @@ qrcode_.callback = res => {
 
 
 }));
-   setTimeout(function(){
+
     window.location.replace('/verify')
-   },2000);
+  
     
   }
 };
