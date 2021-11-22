@@ -50,13 +50,18 @@ qrcode_.callback = res => {
     xhr.send(JSON.stringify({
         key:res,
         date:datetime,
+        
 
 
-}));
+    }));
+var response = xhr.responseText;
+   if(response=='1'){
 
-    window.location.replace('/verify')
-  
-    
+     window.location.replace('/success')
+   }
+   else if(response=='0'){
+     window.location.replace('/danger')
+   }
   }
 };
 
