@@ -23,9 +23,16 @@ const outputData = document.getElementById("outputData");
 const btnScanQR = document.getElementById("btn-scan-qr");
 
 let scanning = false;
+var verification_key = 0
+var Imp_Data = firebase.database().ref("__Generated__")
+Imp_Data.on('value', (snapshot) => {
+  all_values = snapshot.val()
+  verification_key = Object.keys(all_values)[Object.keys(all_values).length - 1]
+})
 
 qrcode_.callback = res => {
-  if (res) {
+  if (res==verification_key) {
+    console.log(`res = ${res}   verification_key = ${verification_key}   hence true was followed`)
     var currentdate = new Date(); 
     var datetime = "Last Sync: " + currentdate.getDate() + "-"
                 + (currentdate.getMonth()+1)  + "-" 
@@ -56,12 +63,17 @@ qrcode_.callback = res => {
     }));
 var response = xhr.responseText;
    if(response=='1'){
-
+    firebase.database().ref("__Generated__").child(res).set({
+      'verified':1
+    })
      window.location.replace('/success')
    }
    else if(response=='0'){
      window.location.replace('/danger')
    }
+  }
+  else{
+    window.location.replace('/error')
   }
 };
 
