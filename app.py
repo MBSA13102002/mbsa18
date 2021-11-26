@@ -21,6 +21,8 @@ config = {
     "appId": "1:911144952264:web:37ab1feabfe1927bc5e0fd",
     "measurementId": "G-V3LM0Y97FC"
   };
+
+
 app = Flask(__name__)
 firebase = Firebase(config)
 db = firebase.database()
@@ -28,5 +30,8 @@ db = firebase.database()
 @app.route("/",methods= ['GET','POST'])
 def start():
     key = db.generate_key()
+    db.child("__Generated__").child(key).set({
+      'verified':0
+    })
     return render_template("index.html",key = key)
 
