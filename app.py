@@ -16,6 +16,7 @@ config = {
 
 firebase = Firebase(config)
 db = firebase.database()
+
 success = 0
 
 app = Flask(__name__)
@@ -88,6 +89,10 @@ def success():
 @app.route('/danger',methods = ['GET','POST'])
 def danger():
     return render_template('danger.html')
+
+@app.route('/error',methods = ['GET','POST'])
+def error():
+    return render_template('error.html')
 
 
             
